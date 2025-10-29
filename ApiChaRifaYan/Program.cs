@@ -104,7 +104,19 @@ app.MapPut("/chaRifa/sorteio", async (SorteioParticipanteDto dto, AppDbContext d
 
 app.MapGet("/chaRifa/sorteio", async (AppDbContext db) =>
 {
-    return await db.Sorteio.ToListAsync();
+    return await db.Sorteio
+        .Include(s => s.Participante)
+        .OrderBy(s => s.Numero)
+        .ToListAsync();
+});
+
+app.MapGet("/chaRifa/sorteio/numero/{numero}", async ([FromRoute] int numero, AppDbContext db) =>
+{
+    return await db.Sorteio
+    .Include(s => s.Participante)
+    .Where(s => s.Numero == numero)
+    .Select(s => new { s.Participante })
+    .FirstOrDefaultAsync();
 });
 
 app.Run();
