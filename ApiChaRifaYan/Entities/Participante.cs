@@ -7,5 +7,5 @@ public class Participante
     [Key]
     public int Id { get; set; }
     public string Nome { get; set; } = null!;
-    public DateTime DataHoraCadastro { get; set; }
+    public DateTime DataHoraCadastro { get; set; } = DateTime.UtcNow;
 }

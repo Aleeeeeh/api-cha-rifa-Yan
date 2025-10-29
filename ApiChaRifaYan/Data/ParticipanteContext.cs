@@ -15,6 +15,6 @@ public class ParticipanteContext : IEntityTypeConfiguration<Participante>
             .IsRequired();
 
         builder.Property(p => p.DataHoraCadastro)
-            .HasDefaultValue(DateTime.UtcNow);
+            .HasDefaultValueSql("NOW()");
     }
 }
